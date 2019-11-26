@@ -1,0 +1,47 @@
+{
+  "name": "pph-2625755",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "chokidar-cli": "^2.0.0",
+    "del-cli": "^3.0.0",
+    "node-sass-chokidar": "^1.3.5",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^6.1.3",
+    "push-dir": "^0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leecolarelli/pph-2625755.git"
+  },
+  "keywords": [],
+  "author": "Lee Colarelli - lee@leecolarelli.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leecolarelli/pph-2625755/issues"
+  },
+  "homepage": "https://github.com/leecolarelli/pph-2625755#readme",
+  "scripts": {
+    "watch-sass": "node-sass-chokidar src/scss/main.scss dist/css/main.css --watch --recursive --include-path node_modules",
+    "compile-sass": "node-sass-chokidar src/scss/main.scss dist/css/styles.comp.css --recursive --include-path node_modules",
+    "prefix-css": "postcss --use autoprefixer -b 'last 5 versions' dist/css/styles.comp.css -o dist/css/styles.prefix.css",
+    "compress-css": "node-sass-chokidar dist/css/styles.prefix.css dist/css/main.css --output-style compressed",
+    "delete-css": "del-cli dist/css/styles.comp.css dist/css/styles.prefix.css",
+    "build-css": "npm-run-all compile-sass prefix-css compress-css delete-css",
+    "deploy-ghpages": "push-dir --dir=dist --branch=gh-pages"
+  },
+  "scriptsComments": {
+    "watch-sass": "Watches and compiles sass without autoprefixing or compressing. Run this during development to compile new sass.",
+    "compile-sass": "Compiles sass to styles.comp.css, to then be prefixed and compressed. Part of the build process, which should be run at the end of development.",
+    "prefix-css": "Prefixes styles.comp.css and outputs to styles.prefix.css to then be compressed. Part of the build process, which should be run at the end of development.",
+    "compress-css": "Compresses styles.prefix.css and outputs to main.css. Part of the build process, which should be run at the end of development.",
+    "delete-css": "Deletes the left over styles.comp.css and styles.prefix.css files. Part of the build process, which should be run at the end of development.",
+    "build-css": "Compiles, prefixes and compresses the styles. Should be run at the end of development.",
+    "deploy-ghpages": "Uses push-dir to push the /dist directory to a gh-pages (GitHub Pages) branch, to view on GitHub Pages."
+  }
+}
